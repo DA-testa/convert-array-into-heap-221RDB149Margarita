@@ -1,33 +1,31 @@
 # python3
 
-import math
+def heapify(arr, n, i, swaps):
+    """
+    Heapify subtree rooted at index i.
+    """
+    
+    l = 2 * i + 1
+    r = 2 * i + 2 
 
-def build_heap(data):
+    if l < n and arr[l] > arr[largest]:
+        largest = l
+
+    if r < n and arr[r] > arr[largest]:
+        largest = r
+
+    if largest != i:
+        swaps.append((i, largest))
+        arr[i], arr[largest] = arr[largest], arr[i] 
+
+        heapify(arr, n, largest, swaps)
+
+def build_heap(arr):
     swaps = []
-    n = len(data)
+    n = len(arr)
 
     for i in range(n // 2 - 1, -1, -1):
-        min_index = i
-        if 2 * i + 1 < n and data[2 * i + 1] < data[min_index]:
-            min_index = 2 * i + 1
-        if 2 * i + 2 < n and data[2 * i + 2] < data[min_index]:
-            min_index = 2 * i + 2
-        if i != min_index:
-            swaps.append((i, min_index))
-            data[i], data[min_index] = data[min_index], data[i]
-            j = min_index
-            while j <= (n//2-1):
-                k = j
-                if 2 * j + 1 < n and data[2 * j + 1] < data[k]:
-                    k = 2*j+1
-                if 2 * j + 2 < n and data[2 * j + 2] < data[k]:
-                    k = 2 * j + 2
-                if j != k:
-                    swaps.append((j, k))
-                    data[j], data[k] = data[k], data[j]
-                    j = k
-                else:
-                    break
+        heapify(arr, n, i, swaps)
 
     return swaps
 
@@ -37,22 +35,17 @@ def main():
         filename = input()
         with open("tests/" + filename, 'r', encoding = "utf-8") as f:
             n = int(f.readline())
-            data = list(map(int, f.readline().split()))
+            arr = list(map(int, f.readline().split()))
     elif "I" in source:
         n = int(input())
-        data = list(map(int, input().split()))
-    else: 
-        print("Invalid input source.")
-        exit()
-
-    if data != sorted(data):
-        swaps = build_heap(data)
-
-        print(len(swaps))
-        for i, j in swaps:
-            print(i, j)
+        arr = list(map(int, input().split()))
     else:
-        print("Data is already a heap.")
+        exit()
+    assert len(arr) == n
+    swaps = build_heap(arr)
+    print(len(swaps))
+    for i, j in swaps:
+        print(i, j)
 
 if __name__ == "__main__":
     main()
