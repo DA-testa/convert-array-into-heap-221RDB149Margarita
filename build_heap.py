@@ -1,7 +1,7 @@
 def heapify(arr, n, i, swaps):
-    largest = i 
-    l = 2 * i + 1 
-    r = 2 * i + 2  
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
 
     if l < n and arr[l] > arr[largest]:
         largest = l
@@ -12,22 +12,25 @@ def heapify(arr, n, i, swaps):
     if largest != i:
         arr[i], arr[largest] = arr[largest], arr[i]  # swap
         swaps.append((i, largest))
-  
         heapify(arr, n, largest, swaps)
- 
+
+
 def heapSort(arr):
     n = len(arr)
     swaps = []
 
+    # Build max heap
     for i in range(n//2 - 1, -1, -1):
         heapify(arr, n, i, swaps)
 
+    # Swap and heapify
     for i in range(n-1, 0, -1):
-        arr[i], arr[0] = arr[0], arr[i]  # swap
+        arr[0], arr[i] = arr[i], arr[0]  # swap
         swaps.append((0, i))
         heapify(arr, i, 0, swaps)
- 
+
     return swaps
+
 
 try:
     text = input().strip()
@@ -46,7 +49,6 @@ try:
         raise ValueError("Invalid input, length of data does not match!")
 
     swaps = heapSort(arr)
-
     print(len(swaps))
     for s in swaps:
         print(s[0], s[1])
