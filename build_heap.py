@@ -1,27 +1,21 @@
-def heapify(data, n, i, swaps):
-    """
-    Heapify a subtree rooted at index i.
-    """
-    largest = i
-    left_child = 2 * i + 1
-    right_child = 2 * i + 2
+def heapify(arr, n, i, swaps):
+    largest = i 
+    l = 2 * i + 1 
+    r = 2 * i + 2  
 
-    if left_child < n and data[left_child] > data[largest]:
-        largest = left_child
+    if l < n and arr[l] > arr[largest]:
+        largest = l
 
-    if right_child < n and data[right_child] > data[largest]:
-        largest = right_child
+    if r < n and arr[r] > arr[largest]:
+        largest = r
 
     if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]  # swap
         swaps.append((i, largest))
-        data[i], data[largest] = data[largest], data[i]
-        heapify(data, n, largest, swaps)
+        heapify(arr, n, largest, swaps)
 
 
 def build_heap(data):
-    """
-    Build a max heap from the input data.
-    """
     n = len(data)
     swaps = []
     for i in range(n // 2, -1, -1):
@@ -47,7 +41,7 @@ def main():
         print("Invalid input method")
         return
 
-    assert 1 <= n <= 100000
+    assert n >= 1 and n <= 100000
     assert len(data) == n
     assert all(0 <= data[i] <= 10**9 for i in range(n))
 
