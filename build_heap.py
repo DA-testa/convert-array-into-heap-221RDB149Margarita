@@ -2,63 +2,44 @@ def heapify(arr, n, i, swaps):
     largest = i 
     l = 2 * i + 1 
     r = 2 * i + 2  
-
     if l < n and arr[l] > arr[largest]:
         largest = l
-
     if r < n and arr[r] > arr[largest]:
         largest = r
-
     if largest != i:
-        arr[i], arr[largest] = arr[largest], arr[i]  # swap
+        arr[i], arr[largest] = arr[largest], arr[i]  
         swaps.append((i, largest))
         heapify(arr, n, largest, swaps)
-
-
-def build_heap(data):
-    n = len(data)
+ 
+def heapSort(arr):
+    n = len(arr)
     swaps = []
-    for i in range(n // 2, -1, -1):
-        heapify(data, n, i, swaps)
+    for i in range(n//2 - 1, -1, -1):
+        heapify(arr, n, i, swaps)
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]  
+        swaps.append((0, i))
+        heapify(arr, i, 0, swaps)
     return swaps
 
-
-def main():
-    input_method = input()
-
-    if 'I' in input_method:
+try:
+    text = input().strip()
+    if "I" in text:
         n = int(input())
-        data = list(map(int, input().split()))
-    elif 'F' in input_method:
+        arr = list(map(int, input().split()))
+    elif "F" in text:
         filename = input()
-        if 'a' in filename:
-            print("Invalid filename")
-            return
         with open("tests/" + filename, 'r') as f:
             n = int(f.readline())
-            data = list(map(int, f.readline().split()))
+            arr = list(map(int, f.readline().split()))
     else:
-        print("Invalid input method")
-        return
-
-    assert n >= 1 and n <= 100000
-    assert len(data) == n
-    assert all(0 <= data[i] <= 10**9 for i in range(n))
-
-    swaps = build_heap(data)
-
-    for i in range(n):
-        left_child = 2*i + 1
-        right_child = 2*i + 2
-        if left_child < n:
-            assert data[i] >= data[left_child]
-        if right_child < n:
-            assert data[i] >= data[right_child]
-
+        raise ValueError("Invalid input, please input F or I!")
+    if n != len(arr):
+        raise ValueError("Invalid input, length of data does not match!")
+    swaps = heapSort(arr)
     print(len(swaps))
-    for i, j in swaps:
-        print(i, j)
+    for s in swaps:
+        print(s[0], s[1])
 
-
-if __name__ == "__main__":
-    main()
+except ValueError:
+    print("Error")
