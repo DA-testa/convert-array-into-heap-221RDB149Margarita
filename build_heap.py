@@ -36,15 +36,17 @@ def heapSort(arr):
         heapify(arr, i, 0, swaps)
  
     return swaps
+  text = input().strip()
+        if "I" in text:
+            n = int(input())
+            arr = list(map(int, input().split()))
+        elif "F" in text:
+            filename = input()
+            with open ("tests/" + filename, 'r') as f:
+                n = int(f.readline())
+                arr = list(map(int,f.readline().split())) 
  
- 
-n = int(input())
-arr = []
-try:
-    arr = list(map(int, input().split()))
-except ValueError as e:
-    print("error", e)
-    exit()
+
 
 swaps = heapSort(arr)
 
