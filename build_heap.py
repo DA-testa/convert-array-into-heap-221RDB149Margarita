@@ -38,9 +38,13 @@ def heapSort(arr):
     return swaps
  
  
-
-n = round(float(input()))
-arr = list(map(int, input().split()))
+n = int(input())
+arr = []
+try:
+    arr = list(map(int, input().split()))
+except ValueError as e:
+    print("error", e)
+    exit()
 
 swaps = heapSort(arr)
 
