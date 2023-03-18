@@ -37,27 +37,24 @@ def heapSort(arr):
  
     return swaps
 try:
- text = input().strip()
-        if "I" in text:
-            n = int(input())
-            arr = list(map(int, input().split()))
-        elif "F" in text:
-            filename = input()
-            with open ("tests/" + filename, 'r') as f:
-                n = int(f.readline())
-                arr = list(map(int,f.readline().split()))
-        else:
-            raise ValueError("Invalid input, please input F or I!")
-        if n != len(arr):
-            raise ValueError("Invalid input, length of data does not match!")
-        swaps = heapSort(arr)
-        print(len(swaps))
-        print()
-        for s in swaps:
-          print(s[0], s[1]))
-   
-    except ValueError:
+  text = input().strip()
+  if "I" in text:
+      n = int(input())
+      arr = list(map(int, input().split()))
+  elif "F" in text:
+      filename = input()
+      with open ("tests/" + filename, 'r') as f:
+          n = int(f.readline())
+          arr = list(map(int,f.readline().split()))
+  else:
+      raise ValueError("Invalid input, please input F or I!")
+  if n != len(arr):
+      raise ValueError("Invalid input, length of data does not match!")
+  swaps = heapSort(arr)
+  print(len(swaps))
+  print()
+  for s in swaps:
+    print(s[0], s[1])
+
+except ValueError:
         print("Error")
-
-
-
