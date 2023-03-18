@@ -1,32 +1,50 @@
-def sift_down(data, i, swaps):
-    """Sift down the element at index i in the data list to maintain heap property."""
-    n = len(data)
-    min_index = i
-    l = 2 * i + 1
-    if l < n and data[l] < data[min_index]:
-        min_index = l
-    r = 2 * i + 2
-    if r < n and data[r] < data[min_index]:
-        min_index = r
-    if i != min_index:
-        swaps.append((i, min_index))
-        data[i], data[min_index] = data[min_index], data[i]
-        sift_down(data, min_index, swaps)
+def heapify(arr, n, i, swaps):
+  
+    largest = i 
+    l = 2 * i + 1 
+    r = 2 * i + 2  
+ 
 
+    if l < n and arr[l] > arr[largest]:
+        largest = l
+ 
 
-def build_heap(data):
-    """Build a min-heap from the given data list using O(n) swaps."""
+    if r < n and arr[r] > arr[largest]:
+        largest = r
+ 
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]  # swap
+        swaps.append((i, largest))
+ 
+  
+        heapify(arr, n, largest, swaps)
+ 
+ 
+def heapSort(arr):
+    n = len(arr)
     swaps = []
-    n = len(data)
-    for i in range(n // 2 - 1, -1, -1):
-        sift_down(data, i, swaps)
+ 
+
+    for i in range(n//2 - 1, -1, -1):
+        heapify(arr, n, i, swaps)
+ 
+
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]  # swap
+        swaps.append((0, i))
+        heapify(arr, i, 0, swaps)
+ 
     return swaps
+ 
+ 
 
+n = int(input())
+arr = list(map(int, input().split()))
 
-if __name__ == '__main__':
-    n = int(input())
-    data = list(map(int, input().split()))
-    swaps = build_heap(data)
-    print(len(swaps))
-    for swap in swaps:
-        print(swap[0], swap[1])
+swaps = heapSort(arr)
+
+print(, len(swaps))
+print()
+for s in swaps:
+    print(s[0], s[1])
