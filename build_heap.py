@@ -39,7 +39,7 @@ def heapSort(arr):
  
  
 
-n = int(input())
+n = round(float(input()))
 arr = list(map(int, input().split()))
 
 swaps = heapSort(arr)
