@@ -44,7 +44,7 @@ arr = list(map(int, input().split()))
 
 swaps = heapSort(arr)
 
-print(, len(swaps))
+print(len(swaps))
 print()
 for s in swaps:
     print(s[0], s[1])
