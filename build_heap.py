@@ -46,7 +46,7 @@ if __name__ == "__main__":
     elif command == "F":
         name = input("file name: ")
 
-        assert name.endswith(".a")
+
 
         with open("tests/" + name, "r") as file:
             n = int(file.readline())
