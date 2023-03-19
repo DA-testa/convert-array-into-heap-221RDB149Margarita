@@ -30,25 +30,32 @@ class MinHeap:
         for x in self.swaps:
             print(*x)
 
-if __name__ == "__main__":
-    source = input("source: ").strip().upper()
 
-    if source == "I":
+if __name__ == "__main__":
+    command = input("command: ").strip().upper()
+
+    if command == "I":
         n = int(input())
         arr = list(map(int, input().split()))
-    elif source == "F":
-        filename = input("file name: ").strip()
 
-        assert filename.endswith(".a")
+        assert len(arr) == n
 
-        with open("tests/" + filename, "r") as file:
+        min_heap = MinHeap(arr)
+        min_heap.print_swaps()
+
+    elif command == "F":
+        name = input("file name: ")
+
+        assert name.endswith(".a")
+
+        with open("tests/" + name, "r") as file:
             n = int(file.readline())
             arr = list(map(int, file.readline().split()))
+
+        assert len(arr) == n
+
+        min_heap = MinHeap(arr)
+        min_heap.print_swaps()
+
     else:
-        raise ValueError("Invalid source")
-
-
-    assert len(arr) == n
-
-    min_heap = MinHeap(arr)
-    min_heap.print_swaps()
+        print("Invalid command")
